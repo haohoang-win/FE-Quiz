@@ -2,6 +2,7 @@ import './App.scss';
 import Header from './components/header/header';
 import { Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <div className='app-container'>
         <Header />
         <Container>
+          <AppRoutes />
         </Container>
       </div>
       <ToastContainer

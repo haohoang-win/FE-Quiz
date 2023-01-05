@@ -2,13 +2,9 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
-
-    const handleDropDown = (link) => {
-
-    }
 
     return (
         <>
@@ -20,8 +16,8 @@ const Header = (props) => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <NavDropdown title="User" id="basic-nav-dropdown">
-                                <NavDropdown.Item ><NavLink to='/users' className='nav-link'>Create a User</NavLink></NavDropdown.Item>
-                                <NavDropdown.Item><NavLink to='/users' className='nav-link'>Create a User</NavLink>All User</NavDropdown.Item>
+                                <NavDropdown.Item ><NavLink to='/add-user' className='nav-link'>Create a User</NavLink></NavDropdown.Item>
+                                <NavDropdown.Item><NavLink to='/users' className='nav-link'>All User</NavLink></NavDropdown.Item>
                             </NavDropdown>
                             {/* <NavLink to='/' className='nav-link'>{t('header.home')}</NavLink>
                             <NavLink to='/users' className='nav-link'>{t('header.user')}</NavLink>

@@ -11,3 +11,78 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+.app-container {
+    .home-comtainer {
+        text-align: center;
+        height: 100vh;
+        padding: 40px 0px 0px;
+
+        .welcome {
+            font-size: 60px;
+            font-weight: 600;
+            color: rgb(30, 148, 148);
+            padding-bottom: 40px;
+        }
+
+        .quiz-app {
+            font-size: 40px;
+            font-weight: 400;
+            color: rgb(12, 107, 75);
+            padding-bottom: 30px;
+        }
+
+        .design {
+            font-size: 24px;
+            font-weight: 300;
+            color: rgb(48, 36, 36);
+        }
+    }
+
+    .addnewuser-container {
+        .title {
+            font-size: 40px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .btn-add {
+            padding: 20px 0px 0px 0px;
+            text-align: right;
+        }
+
+        .img-preview {
+            height: 200px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ccc;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        .label-upload {
+            color: rgb(46, 149, 175);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: fit-content;
+            padding: 3px 10px;
+            border-radius: 5px;
+            background: #eeeeee;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #dcdcdc;
+            }
+        }
+
+    }
+
+}
