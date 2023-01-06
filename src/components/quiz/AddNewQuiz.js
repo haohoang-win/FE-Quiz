@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
-import { postNewUser } from '../../services/userServices'
+import { postNewQuiz } from '../../services/quizServices';
 
-const AddNewUser = (props) => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+const AddNewQuiz = (props) => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState();
+    const [difficulty, setDifficulty] = useState('EASY');
     const [image, setImage] = useState('');
     const [previewImage, setPreviewImage] = useState('');
 
@@ -18,31 +19,23 @@ const AddNewUser = (props) => {
         }
     }
 
-    const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
-
     const handleSubmitCreateUser = async () => {
-        const isValidEmail = validateEmail(email)
-        if (!username) {
-            toast.error('Invalid username!')
+        if (!name) {
+            toast.error('Invalid name!')
             return;
         }
-        if (!isValidEmail) {
-            toast.error('Invalid email!')
-            return;
-        }
+
         // convert image to base64
-        let imageB64 = await toBase64(image)
-        let data = await postNewUser(username, email, image, imageB64)
+        let imageB64;
+        if (image) {
+            imageB64 = await toBase64(image)
+        }
+        let data = await postNewQuiz(name, difficulty, description, image, imageB64)
         if (data && data.EC === 0) {
             toast.success(data.mes);
-            setEmail('');
-            setUsername('');
+            setName('');
+            setDifficulty('EASY')
+            setDescription('');
             setImage('');
             setPreviewImage('');
         }
@@ -61,15 +54,23 @@ const AddNewUser = (props) => {
     return (
         <>
             <div className='addnewuser-container'>
-                <div className="title">Add new User</div>
+                <div className="title">Add new Quiz</div>
                 <form className="row g-3">
-                    <div className="col-md-6">
-                        <label className="form-label">Username</label>
-                        <input type="text" className="form-control" value={username} onChange={(event) => setUsername(event.target.value)} />
+                    <div className="col-md-5">
+                        <label className="form-label">Name</label>
+                        <input type="text" className="form-control" value={name} onChange={(event) => setName(event.target.value)} />
                     </div>
-                    <div className="col-md-6">
-                        <label className="form-label">Email</label>
-                        <input type="email" className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
+                    <div className="col-md-3">
+                        <label className="form-label">Difficulty</label>
+                        <select className="form-select" onChange={(event) => setDifficulty(event.target.value)} value={difficulty}>
+                            <option value="EASY">EASY</option>
+                            <option value='MEDIUM'>MEDIUM</option>
+                            <option value='HARD'>HARD</option>
+                        </select>
+                    </div>
+                    <div className="col-md-8">
+                        <label className="form-label">Description</label>
+                        <textarea rows={'6'} type="text" className="form-control" value={description} onChange={(event) => setDescription(event.target.value)} />
                     </div>
                     <div className='col-md-12'>
                         <label className="form-label label-upload" htmlFor='labelUpload'>
@@ -95,4 +96,4 @@ const AddNewUser = (props) => {
     )
 }
 
-export default AddNewUser
+export default AddNewQuiz
