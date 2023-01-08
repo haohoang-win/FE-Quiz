@@ -37,7 +37,10 @@ const AddNewUser = (props) => {
             return;
         }
         // convert image to base64
-        let imageB64 = await toBase64(image)
+        let imageB64 = '';
+        if (image) {
+            imageB64 = await toBase64(image)
+        }
         let data = await postNewUser(username, email, image, imageB64)
         if (data && data.EC === 0) {
             toast.success(data.mes);

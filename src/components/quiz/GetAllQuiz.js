@@ -55,6 +55,7 @@ const GetAllQuiz = (props) => {
     return (
         <>
             <div className="getallquiz-container">
+                <div className="title">All Quiz</div>
                 <table className="table table-hover table-bordered">
                     <thead>
                         <tr>

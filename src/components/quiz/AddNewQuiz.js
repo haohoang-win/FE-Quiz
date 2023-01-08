@@ -5,7 +5,7 @@ import { postNewQuiz } from '../../services/quizServices';
 
 const AddNewQuiz = (props) => {
     const [name, setName] = useState('');
-    const [description, setDescription] = useState();
+    const [description, setDescription] = useState('');
     const [difficulty, setDifficulty] = useState('EASY');
     const [image, setImage] = useState('');
     const [previewImage, setPreviewImage] = useState('');
@@ -26,7 +26,7 @@ const AddNewQuiz = (props) => {
         }
 
         // convert image to base64
-        let imageB64;
+        let imageB64 = '';
         if (image) {
             imageB64 = await toBase64(image)
         }

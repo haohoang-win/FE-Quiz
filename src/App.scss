@@ -86,7 +86,14 @@ code {
     }
 
     .getalluser-container {
-        padding: 30px 40px 0;
+        padding: 0px 40px;
+
+        .title {
+            font-size: 40px;
+            font-weight: 500;
+            text-align: center;
+            padding-bottom: 20px;
+        }
 
         .user-pagination {
             display: flex;
@@ -95,11 +102,81 @@ code {
     }
 
     .getallquiz-container {
-        padding: 30px 40px 0;
+        padding: 0px 40px;
+
+        .title {
+            font-size: 40px;
+            font-weight: 500;
+            text-align: center;
+            padding-bottom: 20px;
+        }
 
         .user-pagination {
             display: flex;
             justify-content: center;
+        }
+    }
+
+    .upsetquiz-container {
+        .title {
+            font-size: 40px;
+            font-weight: 500;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .input-question {
+            margin: auto 0px;
+        }
+
+        .file-upload-question {
+            margin: auto 0;
+
+            label {
+                color: plum;
+            }
+
+            .plus {
+                color: blue;
+            }
+
+            .remove {
+                color: orange;
+            }
+
+            .file-update {
+                cursor: pointer;
+            }
+        }
+
+        .input-answer {
+            display: flex;
+
+            .radio {
+                width: 20px;
+                height: 20px;
+                margin: auto 20px;
+                accent-color: black;
+            }
+
+            .input {}
+        }
+
+        .add-remove {
+            top: 20px;
+            padding-top: 6px;
+
+            .plus {
+                color: blue;
+            }
+
+            .remove {
+                color: orange;
+            }
+        }
+
+        .btn-add-question {
+            text-align: center;
         }
     }
 

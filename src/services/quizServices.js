@@ -11,6 +11,20 @@ const postNewQuiz = (name, difficulty, description, image, imageB64) => {
     return axios.post('/quizzes', data);
 }
 
+const postQuestionForQuiz = (quizId, arrQuestionId) => {
+    let data = {
+        type: 'AR-Q',
+        quizId: quizId,
+        arrQuestionId: arrQuestionId
+    };
+    data = JSON.parse(JSON.stringify(data));
+    return axios.post('/quizzes', data);
+}
+
+const getAllQuiz = () => {
+    return axios.get(`/quizzes?populate=questions.answers`)
+}
+
 const getQuizByPage = (page, limit) => {
     return axios.get(`/quizzes?page=${page}&limit=${limit}`)
 }
@@ -30,4 +44,8 @@ const deleteQuiz = (id) => {
     return axios.delete(`/quizzes/${id}`);
 }
 
-export { postNewQuiz, getQuizByPage, upsertQuiz, deleteQuiz }
+const getAnswerById = (id) => {
+    return axios.get(`/answers/${id}`);
+}
+
+export { postNewQuiz, postQuestionForQuiz, getAllQuiz, getQuizByPage, upsertQuiz, deleteQuiz, getAnswerById }

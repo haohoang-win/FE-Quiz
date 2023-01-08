@@ -54,6 +54,7 @@ const GetAllUser = (props) => {
 
     return (<>
         <div className="getalluser-container">
+            <div className="title">All User</div>
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
