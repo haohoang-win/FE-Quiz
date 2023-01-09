@@ -326,11 +326,15 @@ const UpsertQuiz = (props) => {
                         })
                     }
                 </form>
-                <div className='btn-add-question mt-3'>
-                    <Button variant="primary" onClick={handleSubmitDetailQuiz}>
-                        Save
-                    </Button>
-                </div>
+                {dataSelectedQuiz ?
+                    <div className='btn-add-question mt-3'>
+                        <Button variant="primary" onClick={handleSubmitDetailQuiz}>
+                            Save
+                        </Button>
+                    </div>
+                    :
+                    <></>
+                }
             </div>
             <ModalViewImage
                 dataPreviewImage={dataPreviewImage}

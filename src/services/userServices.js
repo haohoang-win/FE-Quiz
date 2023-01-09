@@ -10,6 +10,15 @@ const postNewUser = (username, email, image, imageB64) => {
     return axios.post('/users', data);
 }
 
+const postQuizForUser = (data) => {
+    return axios.post('/users', data);
+}
+
+
+const getUser = () => {
+    return axios.get(`/users`)
+}
+
 const getUserByPage = (page, limit) => {
     return axios.get(`/users?page=${page}&limit=${limit}`)
 }
@@ -29,4 +38,4 @@ const deleteUser = (id) => {
     return axios.delete(`/users/${id}`);
 }
 
-export { postNewUser, getUserByPage, upsertUser, deleteUser }
+export { postNewUser, getUser, getUserByPage, upsertUser, deleteUser, postQuizForUser }

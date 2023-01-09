@@ -17,6 +17,7 @@ const Header = (props) => {
                             <NavDropdown title="User" id="basic-nav-dropdown">
                                 <NavDropdown.Item ><NavLink to='/add-user' className='nav-link'>Create a User</NavLink></NavDropdown.Item>
                                 <NavDropdown.Item><NavLink to='/users' className='nav-link'>All User</NavLink></NavDropdown.Item>
+                                <NavDropdown.Item><NavLink to='/quiz-user' className='nav-link'>Add a Quiz for User</NavLink></NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="Quiz" id="basic-nav-dropdown">
                                 <NavDropdown.Item ><NavLink to='/add-quiz' className='nav-link'>Create a Quiz</NavLink></NavDropdown.Item>
