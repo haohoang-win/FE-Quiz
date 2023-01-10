@@ -26,10 +26,7 @@ const Header = (props) => {
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                <NavDropdown.Item>Logout</NavDropdown.Item>
-                            </NavDropdown>
-                            <NavLink to='/admins' className='nav-link'>{t('header.admin')}</NavLink> */}
+                            <NavLink to='/exams' className='nav-link'>Go to exams</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

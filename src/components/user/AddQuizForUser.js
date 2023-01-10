@@ -19,9 +19,9 @@ const AddQuizForUser = (props) => {
     const [dataSelectedQuiz, setDataSelectedQuiz] = useState();
     const [filterDifficulty, setFilterDifficulty] = useState('ALL');
 
-    useEffect(() => {
-        fetchAllQuiz();
-        fetchAllUser();
+    useEffect(async () => {
+        await fetchAllQuiz();
+        await fetchAllUser();
     }, [])
 
     useEffect(() => {

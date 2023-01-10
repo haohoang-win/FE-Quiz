@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
+import DetailQuiz from '../components/exam/DetailQuiz'
+import GetAllExam from '../components/exam/GetAllExam'
 import Home from '../components/home/Home'
 import AddNewQuiz from '../components/quiz/AddNewQuiz'
 import GetAllQuiz from '../components/quiz/GetAllQuiz'
@@ -18,6 +20,8 @@ const AppRoutes = () => {
                 <Route path='/add-quiz' element={<AddNewQuiz />} />
                 <Route path='/quizzes' element={<GetAllQuiz />} />
                 <Route path='/upsert-quiz' element={<UpsertQuiz />} />
+                <Route path='/exams' element={<GetAllExam />} />
+                <Route path='/quiz/:id' element={<DetailQuiz />} />
             </Routes>
         </>
     )

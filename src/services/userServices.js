@@ -19,6 +19,10 @@ const getUser = () => {
     return axios.get(`/users`)
 }
 
+const getUserAndQuiz = () => {
+    return axios.get(`/users?populate=quizzes`)
+}
+
 const getUserByPage = (page, limit) => {
     return axios.get(`/users?page=${page}&limit=${limit}`)
 }
@@ -38,4 +42,4 @@ const deleteUser = (id) => {
     return axios.delete(`/users/${id}`);
 }
 
-export { postNewUser, getUser, getUserByPage, upsertUser, deleteUser, postQuizForUser }
+export { postNewUser, getUser, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser }

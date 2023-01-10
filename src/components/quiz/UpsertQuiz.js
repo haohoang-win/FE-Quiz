@@ -43,7 +43,7 @@ const UpsertQuiz = (props) => {
     }, [])
 
     useEffect(() => {
-        if (listQuiz) {
+        if (listQuiz && selectedQuiz && selectedQuiz.value) {
             let result = listQuiz.filter((item) => {
                 if (item._id === selectedQuiz.value) {
                     return item;
@@ -203,7 +203,10 @@ const UpsertQuiz = (props) => {
             if (arrayQuestion.length > 0) {
                 let res = await postQuestionForQuiz(dataSelectedQuiz._id, arrayQuestion)
                 if (res && res.EC === 0) {
-                    toast.success('succes')
+                    toast.success('succes');
+                    await fetchAllQuiz();
+                    setSelectedQuiz({});
+                    setDataSelectedQuiz({})
                 }
             }
         } else {
