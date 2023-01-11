@@ -48,4 +48,10 @@ const getAnswerById = (id) => {
     return axios.get(`/answers/${id}`);
 }
 
-export { postNewQuiz, postQuestionForQuiz, getAllQuiz, getQuizByPage, upsertQuiz, deleteQuiz, getAnswerById }
+const submitQuiz = (id) => {
+    const data = new FormData();
+    data.append('id', id);
+    return axios.post(`/submit-quiz?populate=questions.answers`, data);
+}
+
+export { postNewQuiz, postQuestionForQuiz, getAllQuiz, getQuizByPage, upsertQuiz, deleteQuiz, getAnswerById, submitQuiz }

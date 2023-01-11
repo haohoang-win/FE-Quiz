@@ -165,23 +165,27 @@ const UpsertQuiz = (props) => {
             for (let question of questions) {
                 const answers = question.answers;
                 let answerId = [];
+                let answersDescription = [];
                 for (let answer of answers) {
                     if (answer._id === 'fakeA') {
                         delete answer._id;
                         let res = await postAnswer(answer);
                         if (res && res.EC === 0) {
                             answerId.push(res.data._id)
+                            answersDescription.push(res.data.description)
                         }
                     } else {
                         let res = await putAnswer(answer)
                         if (res && res.EC === 0) {
                             answerId.push(answer._id)
+                            answersDescription.push(answer.description)
                         }
                     }
                 }
                 if (question._id === 'fakeQ') {
                     delete question._id;
                     question.answers = answerId
+                    question.answersDescription = answersDescription
                     question.difficulty = dataSelectedQuiz.difficulty;
                     let res = await postQuestion(question);
                     if (res && res.EC === 0) {
@@ -189,6 +193,7 @@ const UpsertQuiz = (props) => {
                     }
                 } else {
                     question.answers = answerId;
+                    question.answersDescription = answersDescription;
                     question.type = 'AR-A';
                     if (!!question.image.name) {
                         let b64 = await toBase64(question.image);
@@ -329,7 +334,7 @@ const UpsertQuiz = (props) => {
                         })
                     }
                 </form>
-                {dataSelectedQuiz ?
+                {dataSelectedQuiz && dataSelectedQuiz._id ?
                     <div className='btn-add-question mt-3'>
                         <Button variant="primary" onClick={handleSubmitDetailQuiz}>
                             Save
