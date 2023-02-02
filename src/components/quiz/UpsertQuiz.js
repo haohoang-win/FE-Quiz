@@ -59,13 +59,13 @@ const UpsertQuiz = (props) => {
     const fetchAllQuiz = async () => {
         let res = await getAllQuiz();
         if (res && res.EC === 0) {
-            let listQuizName = res.data.map((item, index) => {
+            let listQuizName = res.DT.map((item, index) => {
                 return ({
                     label: `${index + 1} - ${item.name}`,
                     value: item._id
                 })
             })
-            setListQuiz(res.data)
+            setListQuiz(res.DT)
             setAllQuizName(listQuizName)
         }
     }
@@ -171,8 +171,8 @@ const UpsertQuiz = (props) => {
                         delete answer._id;
                         let res = await postAnswer(answer);
                         if (res && res.EC === 0) {
-                            answerId.push(res.data._id)
-                            answersDescription.push(res.data.description)
+                            answerId.push(res.DT._id)
+                            answersDescription.push(res.DT.description)
                         }
                     } else {
                         let res = await putAnswer(answer)
@@ -189,7 +189,7 @@ const UpsertQuiz = (props) => {
                     question.difficulty = dataSelectedQuiz.difficulty;
                     let res = await postQuestion(question);
                     if (res && res.EC === 0) {
-                        arrayQuestion.push(res.data._id)
+                        arrayQuestion.push(res.DT._id)
                     }
                 } else {
                     question.answers = answerId;
@@ -201,7 +201,7 @@ const UpsertQuiz = (props) => {
                     }
                     let res = await postAnswerForQuestion(question)
                     if (res && res.EC === 0) {
-                        arrayQuestion.push(res.data._id)
+                        arrayQuestion.push(res.DT._id)
                     }
                 }
             }

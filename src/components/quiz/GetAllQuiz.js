@@ -23,7 +23,7 @@ const GetAllQuiz = (props) => {
     const fetchQuizByPage = async (page) => {
         let res = await getQuizByPage(page, limit);
         if (res && res.EC === 0) {
-            setListQuizzes(res.data)
+            setListQuizzes(res.DT)
             setTotalPage(res.totalPage)
             setCurentPage(page)
         }

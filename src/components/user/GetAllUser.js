@@ -23,7 +23,7 @@ const GetAllUser = (props) => {
     const fetchUserByPage = async (page) => {
         let res = await getUserByPage(page, limit);
         if (res.EC === 0) {
-            setListUsers(res.data);
+            setListUsers(res.DT);
             setTotalPage(res.totalPage);
             setCurentPage(page)
         }
@@ -61,6 +61,7 @@ const GetAllUser = (props) => {
                         <th scope="col">STT</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -72,6 +73,7 @@ const GetAllUser = (props) => {
                                     <td>{(limit * (currentPage - 1)) + (index + 1)}</td>
                                     <td>{item.username}</td>
                                     <td>{item.email}</td>
+                                    <td>{item.role}</td>
                                     <td>
                                         <button
                                             onClick={() => handleClickButtonView(item)}

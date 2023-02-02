@@ -33,14 +33,14 @@ const GetAllExam = (props) => {
     const fetchAllUser = async () => {
         let res = await getUserAndQuiz();
         if (res && res.EC === 0) {
-            let nameListUser = res.data.map((item, index) => {
+            let nameListUser = res.DT.map((item, index) => {
                 return ({
                     label: `${item.username} (${item.email})`,
                     value: item._id
                 })
             })
             setDataListUser(nameListUser)
-            setListUser(res.data)
+            setListUser(res.DT)
         }
     }
 

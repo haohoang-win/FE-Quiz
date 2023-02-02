@@ -113,7 +113,7 @@ const DetailQuiz = (props) => {
             let res = await submitQuiz(quizIdRedux)
             if (res && res.EC === 0) {
                 toast.success(res.mes);
-                setDataResult(res.data)
+                setDataResult(res.DT)
                 setShowModalResult(true)
                 setSubmitted(true)
             }

@@ -9,6 +9,7 @@ const ModalViewUser = (props) => {
 
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
+    const [role, setRole] = useState();
     const [previewImage, setPreviewImage] = useState();
 
     useEffect(() => {
@@ -16,6 +17,7 @@ const ModalViewUser = (props) => {
             // update state
             setEmail(dataUser.email);
             setUsername(dataUser.username);
+            setRole(dataUser.role);
             if (dataUser.imageB64) {
                 setPreviewImage(dataUser.imageB64);
             }
@@ -27,6 +29,7 @@ const ModalViewUser = (props) => {
         resetDataUser();
         setEmail('');
         setUsername('');
+        setRole('');
         setPreviewImage('')
     }
 
@@ -44,13 +47,17 @@ const ModalViewUser = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
-                        <div className="col-md-6">
+                        <div className="col-md-5">
                             <label className="form-label">Username</label>
                             <input type="text" className="form-control" disabled value={username} />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-5">
                             <label className="form-label">Email</label>
                             <input type="email" className="form-control" disabled value={email} />
+                        </div>
+                        <div className="col-md-2">
+                            <label className="form-label">Role</label>
+                            <input type="email" className="form-control" disabled value={role} />
                         </div>
                         <div className='col-md-12 img-preview'>
                             {previewImage ?

@@ -1,11 +1,12 @@
 import axios from '../utils/axiosCustomize';
 
-const postNewUser = (username, email, image, imageB64) => {
+const postNewUser = (username, email, image, role, imageB64) => {
     const data = new FormData();
     data.append('username', username);
     data.append('email', email);
     data.append('image', image);
     data.append('imageB64', imageB64);
+    data.append('role', role);
 
     return axios.post('/users', data);
 }
@@ -31,6 +32,7 @@ const upsertUser = (dataUpsert) => {
     const data = new FormData();
     data.append('id', dataUpsert._id);
     data.append('username', dataUpsert.username);
+    data.append('role', dataUpsert.role);
     if (dataUpsert.image) {
         data.append('image', dataUpsert.image);
         data.append('imageB64', dataUpsert.imageB64);

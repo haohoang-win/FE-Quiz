@@ -6,6 +6,7 @@ import { postNewUser } from '../../services/userServices'
 const AddNewUser = (props) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [role, setRole] = useState('STUDENT')
     const [image, setImage] = useState('');
     const [previewImage, setPreviewImage] = useState('');
 
@@ -41,13 +42,14 @@ const AddNewUser = (props) => {
         if (image) {
             imageB64 = await toBase64(image)
         }
-        let data = await postNewUser(username, email, image, imageB64)
+        let data = await postNewUser(username, email, image, role, imageB64)
         if (data && data.EC === 0) {
             toast.success(data.mes);
             setEmail('');
             setUsername('');
             setImage('');
             setPreviewImage('');
+            setRole('STUDENT');
         }
         if (data && data.EC !== 0) {
             toast.error(data.mes)
@@ -66,13 +68,21 @@ const AddNewUser = (props) => {
             <div className='addnewuser-container'>
                 <div className="title">Add new User</div>
                 <form className="row g-3">
-                    <div className="col-md-6">
+                    <div className="col-md-5">
+                        <label className="form-label">Email</label>
+                        <input type="email" className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
+                    </div>
+                    <div className="col-md-5">
                         <label className="form-label">Username</label>
                         <input type="text" className="form-control" value={username} onChange={(event) => setUsername(event.target.value)} />
                     </div>
-                    <div className="col-md-6">
-                        <label className="form-label">Email</label>
-                        <input type="email" className="form-control" value={email} onChange={(event) => setEmail(event.target.value)} />
+                    <div className="col-md-2">
+                        <label className="form-label">Role</label>
+                        <select className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
+                            <option value="STUDENT">STUDENT</option>
+                            <option value='TEACHER'>TEACHER</option>
+                            <option value='MANAGER'>MANAGER</option>
+                        </select>
                     </div>
                     <div className='col-md-12'>
                         <label className="form-label label-upload" htmlFor='labelUpload'>

@@ -82,7 +82,7 @@ const AddQuizForUser = (props) => {
     const fetchAllQuiz = async () => {
         let res = await getAllQuiz()
         if (res && res.EC === 0) {
-            let nameListQuiz = res.data.map((item, index) => {
+            let nameListQuiz = res.DT.map((item, index) => {
                 return ({
                     label: `${index + 1} - ${item.name}`,
                     value: item._id
@@ -91,21 +91,21 @@ const AddQuizForUser = (props) => {
             setDataListQuiz(nameListQuiz)
             setInitDataListQuiz(nameListQuiz)
             setTempDataListQuiz(nameListQuiz)
-            setListQuiz(res.data)
+            setListQuiz(res.DT)
         }
     }
 
     const fetchAllUser = async () => {
         let res = await getUser();
         if (res && res.EC === 0) {
-            let nameListUser = res.data.map((item, index) => {
+            let nameListUser = res.DT.map((item, index) => {
                 return ({
                     label: `${item.username} (${item.email})`,
                     value: item._id
                 })
             })
             setDataListUser(nameListUser)
-            setListUser(res.data)
+            setListUser(res.DT)
         }
     }
 

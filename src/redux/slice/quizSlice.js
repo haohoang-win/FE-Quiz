@@ -5,7 +5,7 @@ export const fetchQuizById = createAsyncThunk(
     'quiz/fetchQuizById',
     async (quizId) => {
         const res = await axios.get(`/quizzes/${quizId}`);
-        return res.data
+        return res.DT
     }
 )
 

@@ -28,7 +28,7 @@ const Question = (props) => {
     const fetchDataQuestion = async (id) => {
         let res = await getQuestion(id)
         if (res && res.EC === 0) {
-            setDataQuestion(res.data)
+            setDataQuestion(res.DT)
         }
     }
 

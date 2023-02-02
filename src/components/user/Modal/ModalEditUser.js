@@ -14,6 +14,7 @@ const ModalEditUser = (props) => {
     const [image, setImage] = useState('');
     const [previewImage, setPreviewImage] = useState();
     const [imageB64, setImageB64] = useState('')
+    const [role, setRole] = useState('')
 
     useEffect(() => {
         if (!_.isEmpty(dataUser)) {
@@ -21,6 +22,7 @@ const ModalEditUser = (props) => {
             setEmail(dataUser.email);
             setUsername(dataUser.username);
             setImage(dataUser.image);
+            setRole(dataUser.role);
             setImageB64(dataUser.imageB64)
             if (dataUser.imageB64) {
                 setPreviewImage(dataUser.imageB64);
@@ -45,6 +47,7 @@ const ModalEditUser = (props) => {
         setImage('');
         setPreviewImage('')
         setImageB64('');
+        setRole('')
     }
 
     const handleSubmitUpsertUser = async () => {
@@ -55,7 +58,8 @@ const ModalEditUser = (props) => {
             return;
         }
 
-        dataUserClone.username = username
+        dataUserClone.username = username;
+        dataUserClone.role = role;
 
         if (!!image.name) {
             dataUserClone.image = image;
@@ -101,13 +105,21 @@ const ModalEditUser = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
-                        <div className="col-md-6">
+                        <div className="col-md-5">
+                            <label className="form-label">Email</label>
+                            <input type="email" className="form-control" disabled value={email} />
+                        </div>
+                        <div className="col-md-5">
                             <label className="form-label">Username</label>
                             <input type="text" className="form-control" value={username} onChange={(event) => setUsername(event.target.value)} />
                         </div>
-                        <div className="col-md-6">
-                            <label className="form-label">Email</label>
-                            <input type="email" className="form-control" disabled value={email} />
+                        <div className="col-md-2">
+                            <label className="form-label">Role</label>
+                            <select className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
+                                <option value="STUDENT">STUDENT</option>
+                                <option value='TEACHER'>TEACHER</option>
+                                <option value='MANAGER'>MANAGER</option>
+                            </select>
                         </div>
                         <div className='col-md-12'>
                             <label className="form-label label-upload" htmlFor='labelUpload'>
