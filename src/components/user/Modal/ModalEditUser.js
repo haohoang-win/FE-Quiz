@@ -61,7 +61,7 @@ const ModalEditUser = (props) => {
         dataUserClone.username = username;
         dataUserClone.role = role;
 
-        if (!!image.name) {
+        if (image && !!image.name) {
             dataUserClone.image = image;
             let b64 = await toBase64(image);
             dataUserClone.imageB64 = b64;

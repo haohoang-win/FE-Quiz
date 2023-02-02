@@ -8,6 +8,8 @@ import UpsertQuiz from '../components/quiz/UpsertQuiz'
 import AddNewUser from '../components/user/AddNewUser'
 import AddQuizForUser from '../components/user/AddQuizForUser'
 import GetAllUser from '../components/user/GetAllUser'
+import Login from '../components/login/Login'
+import Register from '../components/register/Register'
 
 const AppRoutes = () => {
     return (
@@ -22,6 +24,9 @@ const AppRoutes = () => {
                 <Route path='/upsert-quiz' element={<UpsertQuiz />} />
                 <Route path='/exams' element={<GetAllExam />} />
                 <Route path='/quiz/:id' element={<DetailQuiz />} />
+                <Route path='/quiz/:id' element={<DetailQuiz />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
             </Routes>
         </>
     )

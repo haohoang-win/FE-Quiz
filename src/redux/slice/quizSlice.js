@@ -4,7 +4,7 @@ import axios from '../../utils/axiosCustomize';
 export const fetchQuizById = createAsyncThunk(
     'quiz/fetchQuizById',
     async (quizId) => {
-        const res = await axios.get(`/quizzes/${quizId}`);
+        const res = await axios.get(`/quizzes/${quizId}?populate=questions`);
         return res.DT
     }
 )
@@ -22,7 +22,7 @@ export const quizSlice = createSlice({
     reducers: {
         addQuizId: (state, action) => {
             state.id = action.payload;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder

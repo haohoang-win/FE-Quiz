@@ -1,20 +1,6 @@
 .register-container {
     min-height: 100vh;
 
-    .content-left {
-        margin-top: 50px;
-
-        .brand {
-            text-transform: uppercase;
-            font-size: 30px;
-            color: #1877f2;
-        }
-
-        .detail {
-            font-size: 20px;
-        }
-    }
-
     .content-right {
         border-radius: 10px;
         background-color: #fff;
@@ -35,6 +21,16 @@
             text-align: center;
             color: #1877f2;
             font-weight: 600;
+        }
+
+        .btn-back {
+            padding-top: 12px;
+
+            &:hover {
+                cursor: pointer;
+                color: #1877f2;
+                text-decoration: underline;
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ const DetailQuiz = (props) => {
     const isLoading = useSelector(state => state.quiz.isLoading)
     const isError = useSelector(state => state.quiz.isError)
 
-    const [listQuestion, setListQuestion] = useState();
+    const [listQuestion, setListQuestion] = useState([]);
     const [curQuestion, setCurQuestion] = useState(0)
     const [isSelected, setIsSelected] = useState([]);
 
@@ -38,13 +38,14 @@ const DetailQuiz = (props) => {
     }, [])
 
     useEffect(() => {
-        if (detalQuiz && detalQuiz.questions && detalQuiz.questions.length > 0) {
-            setListQuestion(detalQuiz.questions)
+        if (detalQuiz && detalQuiz.questions) {
+            setListQuestion(detalQuiz.questions ? detalQuiz.questions : []);
+            setCurQuestion(0)
         }
     }, [detalQuiz])
 
     useEffect(() => {
-        if (listQuestion && listQuestion.length > 0) {
+        if (listQuestion) {
             let arr = [];
             for (let question of listQuestion) {
                 let data = {

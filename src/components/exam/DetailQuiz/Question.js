@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import { useEffect, useState, useRef } from 'react';
-import { getQuestion } from '../../../services/questionService';
 import ModalViewImage from '../../quiz/Modal/ModalViewImage';
 
 const Question = (props) => {
@@ -9,28 +8,20 @@ const Question = (props) => {
 
     const [isPreviewImage, setIsPreviewImage] = useState(false);
     const [dataPreviewImage, setDataPreviewImage] = useState()
-    const [dataQuestion, setDataQuestion] = useState(false);
+    const [dataQuestion, setDataQuestion] = useState();
     const [checked, setChecked] = useState([])
 
     useEffect(() => {
-        if (arrQuestion && arrQuestion[index]) {
-            let id = arrQuestion[index];
-            fetchDataQuestion(id)
+        if (arrQuestion) {
+            setDataQuestion(arrQuestion[index] ? arrQuestion[index] : {})
         }
-    }, [index])
+    }, [index, arrQuestion])
 
     useEffect(() => {
         if (showAnswers && dataResult && dataResult.length > 0) {
             handleCheck()
         }
     }, [dataQuestion, showAnswers])
-
-    const fetchDataQuestion = async (id) => {
-        let res = await getQuestion(id)
-        if (res && res.EC === 0) {
-            setDataQuestion(res.DT)
-        }
-    }
 
     const handleCheck = () => {
         let data = [];

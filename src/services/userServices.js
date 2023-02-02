@@ -44,4 +44,14 @@ const deleteUser = (id) => {
     return axios.delete(`/users/${id}`);
 }
 
-export { postNewUser, getUser, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser }
+const registerNewUser = (email, username, password) => {
+    return axios.post('/register', { email, username, password })
+}
+
+const loginUser = (email, password) => {
+    return axios.post("/login", {
+        email, password
+    })
+}
+
+export { postNewUser, getUser, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser, registerNewUser, loginUser }

@@ -2,15 +2,19 @@ import './login.scss'
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'
+import { loginUser } from '../../services/userServices';
+import { useDispatch } from 'react-redux';
+import { loginRedux } from '../../redux/slice/userSlice';
 
 const Login = (props) => {
     let navigate = useNavigate();
+    let dispatch = useDispatch();
     const defaultObjsValidInput = {
         isaValidValueLogin: true,
         isValidPassword: true
     }
 
-    const [valueLogin, setValueLogin] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [objValidnput, setObjValidnput] = useState(defaultObjsValidInput);
 
@@ -23,42 +27,47 @@ const Login = (props) => {
 
     const handleLogin = async () => {
         setObjValidnput(defaultObjsValidInput)
-        if (!valueLogin) {
+        let regx = /\S+@\S+\.\S+/;
+        if (!regx.test(email)) {
+            toast.error('Please enter a valid email address');
             setObjValidnput({ ...defaultObjsValidInput, isaValidValueLogin: false })
-            toast.error("Please enter your email address or phone number")
-            return;
+            return false;
         }
         if (!password) {
             setObjValidnput({ ...defaultObjsValidInput, isValidPassword: false })
             toast.error("Please enter your password")
             return;
         }
-        // let res = await loginUser(valueLogin, password)
-        // if (res && +res.EC === 0) {
-        //     let groupWithRoles = res.DT.groupWithRoles
-        //     let email = res.DT.email
-        //     let username = res.DT.username
-        //     let token = res.DT.access_token
-        //     // success
-        //     let data = {
-        //         isAuthenticated: true,
-        //         token,
-        //         account: { groupWithRoles, email, username }
-        //     }
-        //     localStorage.setItem('jwt', token)
-        //     loginContext(data)
-        //     navigate('/users');
-        // }
-        // if (res && +res.EC !== 0) {
-        //     // error
-        //     toast.error(res.EM)
-        // }
+        let res = await loginUser(email, password)
+        if (res && +res.EC === 0) {
+            let role = res.DT.role
+            let email = res.DT.email
+            let username = res.DT.username
+            let token = res.DT.access_token
+            // success
+            let data = {
+                isAuthenticated: true,
+                token,
+                account: { role, email, username }
+            }
+            localStorage.setItem('jwt', token)
+            dispatch(loginRedux(data))
+            navigate('/');
+        }
+        if (res && +res.EC !== 0) {
+            // error
+            toast.error(res.EM)
+        }
     }
 
     const handlePressEnter = (e) => {
         if (e.charCode === 13 && e.code === 'Enter') {
             handleLogin();
         }
+    }
+
+    const backHomePage = () => {
+        navigate('/')
     }
 
     return (
@@ -74,8 +83,8 @@ const Login = (props) => {
                         <input type="text"
                             className={objValidnput.isaValidValueLogin ? "form-control" : "form-control is-invalid"}
                             placeholder="Email address"
-                            value={valueLogin}
-                            onChange={(e) => setValueLogin(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <input type="password"
                             className={objValidnput.isValidPassword ? "form-control" : "form-control is-invalid"}
@@ -93,6 +102,9 @@ const Login = (props) => {
                             <button className="btn btn-success" onClick={handleCreateNewAccount}>
                                 Create new account
                             </button>
+                            <div className='btn-back' onClick={backHomePage}>
+                                Back to HomePage
+                            </div>
                         </div>
                     </div>
                 </div>

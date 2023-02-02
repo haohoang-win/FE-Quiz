@@ -2,6 +2,7 @@ import './register.scss'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { registerNewUser } from '../../services/userServices';
 
 const Register = (props) => {
     let navigate = useNavigate();
@@ -53,16 +54,20 @@ const Register = (props) => {
     }
 
     const handleRegister = async () => {
-        // let check = isValidInputs();
-        // if (check === true) {
-        //     let serverData = await registerNewUser(email, phone, username, password)
-        //     if (+serverData.EC === 0) {
-        //         toast.success(serverData.EM)
-        //         navigate('/login')
-        //     } else {
-        //         toast.error(serverData.EM)
-        //     }
-        // }
+        let check = isValidInputs();
+        if (check === true) {
+            let serverData = await registerNewUser(email, username, password)
+            if (+serverData.EC === 0) {
+                toast.success(serverData.EM)
+                navigate('/login')
+            } else {
+                toast.error(serverData.EM)
+            }
+        }
+    }
+
+    const backHomePage = () => {
+        navigate('/')
     }
 
     return (
@@ -109,6 +114,9 @@ const Register = (props) => {
                             <button className="btn btn-success" onClick={handleLogin}>
                                 Already've an account. Login
                             </button>
+                            <div className='btn-back' onClick={backHomePage}>
+                                Back to HomePage
+                            </div>
                         </div>
                     </div>
                 </div>
