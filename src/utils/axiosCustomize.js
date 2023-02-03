@@ -5,6 +5,10 @@ const instance = axios.create({
     baseURL: 'http://localhost:8080/v1/api',
 });
 
+instance.defaults.withCredentials = true;
+
+instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger

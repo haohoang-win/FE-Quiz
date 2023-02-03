@@ -54,4 +54,12 @@ const loginUser = (email, password) => {
     })
 }
 
-export { postNewUser, getUser, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser, registerNewUser, loginUser }
+const getUserAccount = () => {
+    return axios.get("/account")
+}
+
+const logoutUser = () => {
+    return axios.get(`/logout`)
+}
+
+export { postNewUser, getUser, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser, registerNewUser, loginUser, getUserAccount, logoutUser }
