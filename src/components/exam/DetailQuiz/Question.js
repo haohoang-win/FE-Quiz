@@ -87,12 +87,14 @@ const Question = (props) => {
                                     </label>
                                     <span className='correct'>
                                         {showAnswers && checked[number] === 1 ?
-                                            <i className="fa-solid fa-check"></i> : <></>
+                                            // <i className="fa-solid fa-check"></i> : <></>
+                                            <>right</> : <></>
                                         }
                                     </span>
                                     <span className='wrong'>
                                         {showAnswers && checked[number] === 2 ?
-                                            <i className="fa-solid fa-xmark"></i> : <></>
+                                            // <i className="fa-solid fa-xmark"></i> : <></>
+                                            <>wrong</> : <></>
                                         }
                                     </span>
                                 </div>

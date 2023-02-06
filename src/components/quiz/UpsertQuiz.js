@@ -278,16 +278,18 @@ const UpsertQuiz = (props) => {
                                         </span>
                                         &nbsp;	&nbsp;
                                         <span > &nbsp;
-                                            <i
+                                            {/* <i
                                                 className="fa-solid fa-circle-plus plus"
                                                 onClick={() => handleAddRemoveQuestion('ADD')}
-                                            />
+                                            /> */}
+                                            <span className="plus" onClick={() => handleAddRemoveQuestion('ADD')}>A</span>
                                             {dataSelectedQuiz.questions && dataSelectedQuiz.questions.length > 1 &&
                                                 <>
                                                     &nbsp;	&nbsp; &nbsp;
-                                                    <i className="fa-solid fa-circle-minus remove"
+                                                    {/* <i className="fa-solid fa-circle-minus remove"
                                                         onClick={() => handleAddRemoveQuestion('REMOVE', index)}
-                                                    />
+                                                    /> */}
+                                                    <span className="remove" onClick={() => handleAddRemoveQuestion('REMOVE', index)}>R</span>
                                                 </>
                                             }
                                         </span >
@@ -311,16 +313,18 @@ const UpsertQuiz = (props) => {
                                                     <div className="col-md-1 add-remove">
                                                         <div>
                                                             &nbsp;	&nbsp;&nbsp;	&nbsp; &nbsp;&nbsp;
-                                                            <i
+                                                            {/* <i
                                                                 className="fa-solid fa-circle-plus plus"
                                                                 onClick={() => handleAddRemoveAnswer('ADD', index)}
-                                                            />
+                                                            /> */}
+                                                            <span className="plus" onClick={() => handleAddRemoveAnswer('ADD', index)}>A</span>
                                                             {question.answers && question.answers.length > 1 &&
                                                                 <>
                                                                     &nbsp;	&nbsp;
-                                                                    <i className="fa-solid fa-circle-minus remove"
+                                                                    {/* <i className="fa-solid fa-circle-minus remove"
                                                                         onClick={() => handleAddRemoveAnswer('REMOVE', index, number)}
-                                                                    />
+                                                                    /> */}
+                                                                    <span className="remove" onClick={() => handleAddRemoveAnswer('REMOVE', index, number)}>R</span>
                                                                 </>
                                                             }
                                                         </div>

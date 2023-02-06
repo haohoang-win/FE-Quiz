@@ -3,7 +3,9 @@ import { toast } from 'react-toastify';
 
 const instance = axios.create({
     baseURL: 'https://haohoang-backend-quiz.onrender.com/v1/api',
-});
+    withCredentials: true,
+},
+);
 
 instance.defaults.withCredentials = true;
 
