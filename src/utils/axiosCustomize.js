@@ -2,12 +2,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const instance = axios.create({
-    baseURL: 'https://haohoang-backend-quiz.onrender.com/v1/api',
-    withCredentials: true,
+    baseURL: 'http://localhost:8080/v1/api',
+    withCredentials: true
 },
 );
 
-instance.defaults.withCredentials = true;
+// instance.defaults.withCredentials = true;
 
 instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
 
