@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Select from "react-select";
-import { getUser, postQuizForUser } from '../../services/userServices';
+import { getUserStudent, postQuizForUser } from '../../services/userServices';
 import { getAllQuiz } from '../../services/quizServices';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const AddQuizForUser = (props) => {
+    const role = useSelector(state => state.user.account.role)
     const [listUser, setListUser] = useState();
     const [dataListUser, setDataListUser] = useState([]);
     const [listQuiz, setListQuiz] = useState();
@@ -96,7 +98,7 @@ const AddQuizForUser = (props) => {
     }
 
     const fetchAllUser = async () => {
-        let res = await getUser();
+        let res = await getUserStudent();
         if (res && res.EC === 0) {
             let nameListUser = res.DT.map((item, index) => {
                 return ({

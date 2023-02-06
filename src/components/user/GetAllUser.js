@@ -4,8 +4,11 @@ import ReactPaginate from "react-paginate";
 import ModalViewUser from "./Modal/ModalViewUser";
 import ModalEditUser from "./Modal/ModalEditUser";
 import ModalDeleteUser from "./Modal/ModalDeleteUser";
+import { debounce } from 'lodash';
+import { useSelector } from "react-redux";
 
 const GetAllUser = (props) => {
+    const role = useSelector(state => state.user.account.role)
     const limit = 6;
     const [listUsers, setListUsers] = useState([]);
     const [currentPage, setCurentPage] = useState(1)
@@ -15,13 +18,27 @@ const GetAllUser = (props) => {
     const [showModalViewUser, setShowModalViewUser] = useState(false)
     const [showModalEditUser, setShowModalEditUser] = useState(false)
     const [showModalDeleteUser, setShowModalDeleteUser] = useState(false)
+    const [roleUser, setRoleUser] = useState('');
+    const [dataGetEmail, setDataGetEmail] = useState('')
 
     useEffect(async () => {
-        await fetchUserByPage(1);
+        await fetchUserByPage(1, dataGetEmail, roleUser);
     }, [])
 
-    const fetchUserByPage = async (page) => {
-        let res = await getUserByPage(page, limit);
+    useEffect(async () => {
+        if (roleUser || dataGetEmail) {
+            await searchDataUser()
+        } else {
+            fetchUserByPage(currentPage, dataGetEmail, roleUser);
+        }
+    }, [roleUser, dataGetEmail])
+
+    const searchDataUser = debounce(async () => {
+        await fetchUserByPage(currentPage, dataGetEmail, roleUser);
+    }, 300)
+
+    const fetchUserByPage = async (page, getEmail, roleUser) => {
+        let res = await getUserByPage(page, limit, getEmail, roleUser);
         if (res.EC === 0) {
             setListUsers(res.DT);
             setTotalPage(res.totalPage);
@@ -30,7 +47,7 @@ const GetAllUser = (props) => {
     }
 
     const handlePageClick = (event) => {
-        fetchUserByPage(+event.selected + 1);
+        fetchUserByPage(+event.selected + 1, dataGetEmail, roleUser);
     }
 
     const handleClickButtonView = (user) => {
@@ -55,7 +72,22 @@ const GetAllUser = (props) => {
     return (<>
         <div className="getalluser-container">
             <div className="title">All User</div>
-            <table className="table table-hover table-bordered">
+            <div className="row">
+                <div className="col-md-6">
+                    <label className="form-label">Search Email:</label>
+                    <input type="text" className="form-control" value={dataGetEmail} onChange={(event) => setDataGetEmail(event.target.value)} placeholder='Search user by email...' />
+                </div>
+                <div className="col-md-3">
+                    <label className="form-label">Filter Difficulty</label>
+                    <select className="form-select" onChange={(event) => setRoleUser(event.target.value)} value={roleUser}>
+                        <option value="">ALL</option>
+                        <option value="STUDENT">STUDENT</option>
+                        <option value='TEACHER'>TEACHER</option>
+                        <option value='MANAGER'>MANAGER</option>
+                    </select>
+                </div>
+            </div>
+            <table className="table table-hover table-bordered mt-3">
                 <thead>
                     <tr>
                         <th scope="col">STT</th>
@@ -81,18 +113,23 @@ const GetAllUser = (props) => {
                                         >
                                             View
                                         </button>
-                                        <button
-                                            className="btn btn-warning mx-3"
-                                            onClick={() => handleClickButtonUpdate(item)}
-                                        >
-                                            Update
-                                        </button>
-                                        <button
-                                            className="btn btn-danger"
-                                            onClick={() => handleClickButtonDelete(item)}
-                                        >
-                                            Delete
-                                        </button>
+                                        {role === 'MANAGER' ?
+                                            <>
+                                                <button
+                                                    className="btn btn-warning mx-3"
+                                                    onClick={() => handleClickButtonUpdate(item)}
+                                                >
+                                                    Update
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger"
+                                                    onClick={() => handleClickButtonDelete(item)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </>
+                                            : <></>
+                                        }
                                     </td>
                                 </tr>
                             )
@@ -115,7 +152,6 @@ const GetAllUser = (props) => {
                     pageCount={totalPage}
                     previousLabel="< previous"
                     renderOnZeroPageCount={null}
-
                     pageClassName="page-item"
                     pageLinkClassName="page-link"
                     previousClassName="page-item"
@@ -141,6 +177,8 @@ const GetAllUser = (props) => {
                 resetDataUser={resetDataUser}
                 fetchUserByPage={fetchUserByPage}
                 currentPage={currentPage}
+                dataGetEmail={dataGetEmail}
+                roleUser={roleUser}
             />
             <ModalDeleteUser
                 dataDelete={dataUser}
@@ -148,6 +186,8 @@ const GetAllUser = (props) => {
                 setShow={setShowModalDeleteUser}
                 resetDataUser={resetDataUser}
                 fetchUserByPage={fetchUserByPage}
+                dataGetEmail={dataGetEmail}
+                roleUser={roleUser}
             />
         </div>
     </>)

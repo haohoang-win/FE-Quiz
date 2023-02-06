@@ -7,13 +7,13 @@ import './ModalImage.scss'
 const ModalViewUser = (props) => {
     const { dataUser, show, setShow, resetDataUser } = props;
 
-    const [username, setUsername] = useState();
-    const [email, setEmail] = useState();
-    const [role, setRole] = useState();
-    const [previewImage, setPreviewImage] = useState();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [role, setRole] = useState('');
+    const [previewImage, setPreviewImage] = useState('');
 
     useEffect(() => {
-        if (!_.isEmpty(dataUser)) {
+        if (!_.isEmpty(dataUser) && show) {
             // update state
             setEmail(dataUser.email);
             setUsername(dataUser.username);

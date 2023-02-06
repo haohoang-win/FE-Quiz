@@ -16,7 +16,7 @@ const ModalDeleteUser = (props) => {
         let data = await deleteUser(dataDelete._id)
         if (data && data.EC === 0) {
             toast.success(data.mes);
-            await fetchUserByPage(1)
+            await fetchUserByPage(1, props.dataGetEmail, props.roleUser)
             handleClose();
         }
 

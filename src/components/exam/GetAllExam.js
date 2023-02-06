@@ -3,69 +3,50 @@ import { getUserAndQuiz } from "../../services/userServices";
 import Select from "react-select";
 import './GetAllExam.scss'
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addQuizId } from "../../redux/slice/quizSlice";
 
 const GetAllExam = (props) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const role = useSelector(state => state.user.account.role)
 
-    const [listUser, setListUser] = useState();
-    const [dataListUser, setDataListUser] = useState([]);
-    const [selectedUser, setSelectedUser] = useState([]);
-    const [dataSelectedUser, setDataSelectedUser] = useState([]);
+    const [dataUser, setDataUser] = useState([])
 
     useEffect(async () => {
-        await fetchAllUser();
+        await fetchUser();
     }, [])
 
-    useEffect(() => {
-        if (listUser && selectedUser) {
-            let result = listUser.map(item => {
-                if (item._id === selectedUser.value) {
-                    return item;
-                }
-            }).filter(item => item);
-            setDataSelectedUser(result[0])
-        }
-    }, [selectedUser])
-
-    const fetchAllUser = async () => {
+    const fetchUser = async () => {
         let res = await getUserAndQuiz();
         if (res && res.EC === 0) {
-            let nameListUser = res.DT.map((item, index) => {
-                return ({
-                    label: `${item.username} (${item.email})`,
-                    value: item._id
-                })
-            })
-            setDataListUser(nameListUser)
-            setListUser(res.DT)
+            setDataUser(res.DT)
         }
     }
 
-    const handleDoQuiz = (quizId) => {
-        navigate(`/quiz/${dataSelectedUser.quizzes[quizId]._id}`)
-        dispatch(addQuizId(dataSelectedUser.quizzes[quizId]._id))
+    const handleDoQuiz = (quizId, authorId) => {
+        if (role === 'STUDENT') {
+            navigate(`/quiz/${dataUser.quizzes[quizId]._id}`)
+            dispatch(addQuizId(dataUser.quizzes[quizId]._id))
+        }
+        if (role === 'TEACHER') {
+            navigate(`/quiz/${dataUser.authors[quizId]._id}`)
+            dispatch(addQuizId(dataUser.authors[quizId]._id))
+        }
+        if (role === 'MANAGER') {
+            navigate(`/quiz/${dataUser[authorId].authors[quizId]._id}`)
+            dispatch(addQuizId(dataUser[authorId].authors[quizId]._id))
+        }
     }
 
     return (
         <>
             <div className="getallexam-container">
-                <div className="title">To do exam</div>
-                <form className="row g-3">
-                    <div className="col-md-4" />
-                    <div className="col-md-4">
-                        <label className="form-label">Select User</label>
-                        <Select
-                            value={selectedUser}
-                            onChange={setSelectedUser}
-                            options={dataListUser}
-                        />
-                    </div>
+                <div className="title mt-3">My Quizzes</div>
+                <form className="row g-3 mt-1 listquiz">
                     <div className="col-md-12 list-quiz-container container">
-                        {dataSelectedUser && dataSelectedUser.quizzes && dataSelectedUser.quizzes.length > 0 &&
-                            dataSelectedUser.quizzes.map((quiz, index) => {
+                        {role === 'STUDENT' && dataUser && dataUser.quizzes && dataUser.quizzes.length > 0 &&
+                            dataUser.quizzes.map((quiz, index) => {
                                 return (
                                     <div key={`${index}-quiz`} className="card" style={{ width: " 18rem" }}>
                                         {quiz.image &&
@@ -74,6 +55,7 @@ const GetAllExam = (props) => {
                                         <div className="card-body">
                                             <h5 className="card-title">Quiz {index + 1}</h5>
                                             <p className="card-text">{quiz.description}</p>
+                                            <p className="card-author">Author: {quiz?.author?.username}</p>
                                             <button
                                                 onClick={() => handleDoQuiz(index)}
                                                 className="btn btn-primary"
@@ -85,14 +67,57 @@ const GetAllExam = (props) => {
                                 )
                             })
                         }
-                        {dataSelectedUser && dataSelectedUser.quizzes && dataSelectedUser.quizzes.length === 0 &&
+                        {role === 'TEACHER' && dataUser && dataUser.authors && dataUser.authors.length > 0 &&
+                            dataUser.authors.map((quiz, index) => {
+                                return (
+                                    <div key={`${index}-quiz`} className="card" style={{ width: " 18rem" }}>
+                                        {quiz.image &&
+                                            <img src={`${quiz.imageB64}`} className="card-img-top" alt="..." />
+                                        }
+                                        <div className="card-body">
+                                            <h5 className="card-title">Quiz {index + 1}</h5>
+                                            <p className="card-text">{quiz.description}</p>
+                                            <p className="card-author">Author: {quiz?.author?.username}</p>
+                                            <button
+                                                onClick={() => handleDoQuiz(index)}
+                                                className="btn btn-primary"
+                                            >
+                                                Start
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                        {role === 'MANAGER' && dataUser && dataUser.length > 0 &&
+                            dataUser.map((teacher, index) => {
+                                if (teacher.authors.length > 0) {
+                                    return (teacher.authors.map((quiz, number) => {
+                                        return (
+                                            <div key={`${(index * number) + number}-quiz`} className="card" style={{ width: " 18rem" }}>
+                                                {quiz.image &&
+                                                    <img src={`${quiz.imageB64}`} className="card-img-top" alt="..." />
+                                                }
+                                                <div className="card-body">
+                                                    <h5 className="card-title">Quiz {(index * number) + number + 1}</h5>
+                                                    <p className="card-text">{quiz.description}</p>
+                                                    <p className="card-author">Author: {quiz?.author?.username}</p>
+                                                    <button
+                                                        onClick={() => handleDoQuiz(number, index)}
+                                                        className="btn btn-primary"
+                                                    >
+                                                        Start
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )
+                                    }))
+                                }
+                            })
+                        }
+                        {role === 'STUDENT' && dataUser && dataUser.quizzes && dataUser.quizzes.length === 0 &&
                             <div>
                                 Bạn chưa có bài Quiz lúc này...
-                            </div>
-                        }
-                        {dataSelectedUser.length === 0 &&
-                            < div >
-                                Bạn chưa chọn user để làm bài Quiz lúc này...
                             </div>
                         }
                     </div>

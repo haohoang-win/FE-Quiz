@@ -9,15 +9,15 @@ import { toast } from 'react-toastify';
 const ModalEditUser = (props) => {
     const { dataUser, show, setShow, resetDataUser, fetchUserByPage, currentPage } = props;
 
-    const [username, setUsername] = useState();
-    const [email, setEmail] = useState();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [image, setImage] = useState('');
-    const [previewImage, setPreviewImage] = useState();
+    const [previewImage, setPreviewImage] = useState('');
     const [imageB64, setImageB64] = useState('')
     const [role, setRole] = useState('')
 
     useEffect(() => {
-        if (!_.isEmpty(dataUser)) {
+        if (!_.isEmpty(dataUser) && show) {
             // update state
             setEmail(dataUser.email);
             setUsername(dataUser.username);
@@ -72,7 +72,7 @@ const ModalEditUser = (props) => {
         let data = await upsertUser(dataUserClone);
         if (data && data.EC === 0) {
             toast.success(data.mes);
-            await fetchUserByPage(currentPage)
+            await fetchUserByPage(currentPage, props.dataGetEmail, props.roleUser)
             handleClose();
         }
         if (data && data.EC !== 0) {
@@ -89,10 +89,6 @@ const ModalEditUser = (props) => {
 
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button>  */}
-
             <Modal
                 show={show}
                 onHide={handleClose}

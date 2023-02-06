@@ -1,5 +1,12 @@
-.list-quiz-container {
-    display: flex;
-    gap: 50px;
-    flex-wrap: wrap;
+.listquiz {
+    .list-quiz-container {
+        display: flex;
+        gap: 50px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card-text {
+        margin: 0
+    }
 }

@@ -20,12 +20,16 @@ const getUser = () => {
     return axios.get(`/users`)
 }
 
-const getUserAndQuiz = () => {
-    return axios.get(`/users?populate=quizzes`)
+const getUserStudent = () => {
+    return axios.get(`/users?role=STUDENT`)
 }
 
-const getUserByPage = (page, limit) => {
-    return axios.get(`/users?page=${page}&limit=${limit}`)
+const getUserAndQuiz = () => {
+    return axios.get(`/users?populate=quizzes,authors`)
+}
+
+const getUserByPage = (page, limit, getEmail, roleUser) => {
+    return axios.get(`/users?page=${page}&limit=${limit}&getEmail=${getEmail}&roleUser=${roleUser}`)
 }
 
 const upsertUser = (dataUpsert) => {
@@ -62,4 +66,4 @@ const logoutUser = () => {
     return axios.get(`/logout`)
 }
 
-export { postNewUser, getUser, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser, registerNewUser, loginUser, getUserAccount, logoutUser }
+export { postNewUser, getUser, getUserStudent, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser, registerNewUser, loginUser, getUserAccount, logoutUser }

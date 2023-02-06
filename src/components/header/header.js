@@ -12,6 +12,7 @@ import { logoutUser } from '../../services/userServices';
 const Header = (props) => {
     const location = useLocation()
     const role = useSelector(state => state.user?.account?.role)
+    const username = useSelector(state => state.user?.account?.username)
     const dispatch = useDispatch()
 
     const handleLogOut = async () => {
@@ -62,12 +63,13 @@ const Header = (props) => {
                             <Nav>
                                 {role ?
                                     <>
+                                        <Nav className='nav-link'>Welcome {username}!</Nav>
                                         <NavLink to='/exams' className='nav-link'>Go to exams</NavLink>
                                         <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                            <NavDropdown.Item ><NavLink to='/add-quiz' className='nav-link'>My Profile</NavLink></NavDropdown.Item>
-                                            <NavDropdown.Item><NavLink to='/' className='nav-link'>
-                                                <span onClick={handleLogOut}>Logout</span>
-                                            </NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item ><NavLink to='/' className='nav-link'>My Profile</NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item><span onClick={handleLogOut}><NavLink to='/' className='nav-link'>
+                                                Logout
+                                            </NavLink></span></NavDropdown.Item>
                                         </NavDropdown>
                                     </>
                                     :

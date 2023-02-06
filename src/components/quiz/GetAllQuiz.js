@@ -62,6 +62,7 @@ const GetAllQuiz = (props) => {
                             <th scope="col">STT</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
+                            <th scope="col">Author</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,6 +74,7 @@ const GetAllQuiz = (props) => {
                                         <td>{(limit * (currentPage - 1)) + (index + 1)}</td>
                                         <td>{item.name}</td>
                                         <td>{item.description}</td>
+                                        <td>{item.author.username}</td>
                                         <td>
                                             <button
                                                 onClick={() => handleClickButtonView(item)}
