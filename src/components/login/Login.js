@@ -86,13 +86,13 @@ const Login = (props) => {
                         </div>
                         <input type="text"
                             className={objValidnput.isaValidValueLogin ? "form-control" : "form-control is-invalid"}
-                            placeholder="Email address"
+                            placeholder="Email address (admin@gmail.com)"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <input type="password"
                             className={objValidnput.isValidPassword ? "form-control" : "form-control is-invalid"}
-                            placeholder="Password"
+                            placeholder="Password (all: 123456)"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             onKeyPress={(e) => handlePressEnter(e)}
