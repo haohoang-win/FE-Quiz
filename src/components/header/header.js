@@ -39,22 +39,24 @@ const Header = (props) => {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 {(role && role !== 'STUDENT') ?
-                                    <NavDropdown title="User" id="basic-nav-dropdown">
-                                        {role === 'MANAGER' ?
-                                            <NavDropdown.Item ><NavLink to='/add-user' className='nav-link'>Create a User</NavLink></NavDropdown.Item>
-                                            : <></>
-                                        }
-                                        <NavDropdown.Item><NavLink to='/users' className='nav-link'>All User</NavLink></NavDropdown.Item>
-                                        <NavDropdown.Item><NavLink to='/quiz-user' className='nav-link'>Add a Quiz for User</NavLink></NavDropdown.Item>
-                                    </NavDropdown>
-                                    : <></>
-                                }
-                                {(role && role !== 'STUDENT') ?
                                     <>
+                                        <NavDropdown title="User" id="basic-nav-dropdown">
+                                            {role === 'MANAGER' ?
+                                                <NavDropdown.Item ><NavLink to='/add-user' className='nav-link'>Create a User</NavLink></NavDropdown.Item>
+                                                : <></>
+                                            }
+                                            <NavDropdown.Item><NavLink to='/users' className='nav-link'>All User</NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item><NavLink to='/quiz-user' className='nav-link'>Add a Quiz for User</NavLink></NavDropdown.Item>
+                                        </NavDropdown>
                                         <NavDropdown title="Quiz" id="basic-nav-dropdown">
                                             <NavDropdown.Item ><NavLink to='/add-quiz' className='nav-link'>Create a Quiz</NavLink></NavDropdown.Item>
                                             <NavDropdown.Item><NavLink to='/quizzes' className='nav-link'>All Quiz</NavLink></NavDropdown.Item>
                                             <NavDropdown.Item><NavLink to='/upsert-quiz' className='nav-link'>Upsert Quiz</NavLink></NavDropdown.Item>
+                                        </NavDropdown>
+                                        <NavDropdown title="Season" id="basic-nav-dropdown">
+                                            <NavDropdown.Item ><NavLink to='/add-season' className='nav-link'>Create a Season</NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item><NavLink to='/quizzes' className='nav-link'>All Quiz</NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item><NavLink to='/upsert-season' className='nav-link'>Upsert Season</NavLink></NavDropdown.Item>
                                         </NavDropdown>
                                     </>
                                     : <></>

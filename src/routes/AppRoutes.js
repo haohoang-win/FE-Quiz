@@ -12,6 +12,9 @@ import Login from '../components/login/Login'
 import Register from '../components/register/Register'
 import NotFound from '../components/home/NotFound'
 import { useSelector } from 'react-redux'
+import DatePicker from '../components/manageDate/datePicker'
+import AddNewSeason from '../components/season/AddNewSeason'
+import UpsertSeason from '../components/season/UpsertSeason'
 
 const AppRoutes = () => {
     const role = useSelector(state => state.user.account.role)
@@ -31,6 +34,9 @@ const AppRoutes = () => {
                     <Route path='/add-quiz' element={<AddNewQuiz />} />
                     <Route path='/quizzes' element={<GetAllQuiz />} />
                     <Route path='/upsert-quiz' element={<UpsertQuiz />} />
+                    {/* ------------------------- */}
+                    <Route path='/add-season' element={<AddNewSeason />} />
+                    <Route path='/upsert-season' element={<UpsertSeason />} />
                 </>
                 : <></>
             }
@@ -44,6 +50,7 @@ const AppRoutes = () => {
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/manage-date' element={<DatePicker />} />
             <Route path='*' element={<NotFound />} />
         </Routes>
     )
