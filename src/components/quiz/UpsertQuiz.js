@@ -260,7 +260,8 @@ const UpsertQuiz = (props) => {
                                     </div>
                                     <div className="col-md-2 file-upload-question">
                                         <label htmlFor={`image-${index}-${question.id}`}>
-                                            <i className="fa-regular fa-image" />
+                                            {/* <i className="fa-regular fa-image" /> */}
+                                            <span>+ Image</span>
                                         </label>&nbsp;
                                         <input
                                             id={`image-${index}-${question.id}`}

@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 let initialState = {
     isAuthenticated: false,
     token: "",
-    account: {}
+    account: {},
+    isLoading: false,
 }
 
 export const userSlice = createSlice({
@@ -24,11 +25,17 @@ export const userSlice = createSlice({
             state.isAuthenticated = action?.payload?.isAuthenticated;
             state.token = action?.payload?.token;
             state.account = action?.payload?.account;
+        },
+        loadingLogin: (state, action) => {
+            state.isLoading = true;
+        },
+        unLoadingLogin: (state, action) => {
+            state.isLoading = false;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { loginRedux, logoutRedux, refreshPage } = userSlice.actions
+export const { loginRedux, logoutRedux, refreshPage, loadingLogin, unLoadingLogin } = userSlice.actions
 
 export default userSlice.reducer
