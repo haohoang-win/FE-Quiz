@@ -15,6 +15,8 @@ import { useSelector } from 'react-redux'
 import DatePicker from '../components/manageDate/datePicker'
 import AddNewSeason from '../components/season/AddNewSeason'
 import UpsertSeason from '../components/season/UpsertSeason'
+import AddStudentForClass from '../components/season/AddStudentForClass'
+import AddObjectTeacherForClass from '../components/season/AddObjectTeacherForClass'
 
 const AppRoutes = () => {
     const role = useSelector(state => state.user.account.role)
@@ -23,6 +25,11 @@ const AppRoutes = () => {
             {role === 'MANAGER' ?
                 <>
                     <Route path='/add-user' element={<AddNewUser />} />
+                    {/* ------------------------- */}
+                    <Route path='/add-season' element={<AddNewSeason />} />
+                    <Route path='/upsert-season' element={<UpsertSeason />} />
+                    <Route path='/add-student' element={<AddStudentForClass />} />
+                    <Route path='/add-object-teacher' element={<AddObjectTeacherForClass />} />
                 </>
                 : <></>
 
@@ -34,9 +41,6 @@ const AppRoutes = () => {
                     <Route path='/add-quiz' element={<AddNewQuiz />} />
                     <Route path='/quizzes' element={<GetAllQuiz />} />
                     <Route path='/upsert-quiz' element={<UpsertQuiz />} />
-                    {/* ------------------------- */}
-                    <Route path='/add-season' element={<AddNewSeason />} />
-                    <Route path='/upsert-season' element={<UpsertSeason />} />
                 </>
                 : <></>
             }

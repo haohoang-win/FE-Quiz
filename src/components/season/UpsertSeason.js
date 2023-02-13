@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import { getAllSeason } from "../../services/seasonServices";
+import { getAllSeason, upsertSeason } from "../../services/seasonServices";
 import { getUserByPage } from "../../services/userServices";
 import _ from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
+import { deleteManyClass } from "../../services/classService";
 
 const UpsertSeason = (props) => {
     const [allSelectSeason, setAllSelectSeason] = useState([])
@@ -14,13 +15,11 @@ const UpsertSeason = (props) => {
     const [dataSelectedSeason, setDataSelectedSeason] = useState({});
 
     const [allTeacher, setAllTeacher] = useState([]);
-    const [dataAllTeacher, setDataAllTeacher] = useState([]);
+    const [arrDeleteClass, setArrDeleteClass] = useState([])
 
     const fakeClass = {
         name: 'fakeClassName',
-        teacher: [{
-            _id: '',
-        }]
+        teacher: ['']
     }
 
     const fakeGrade = {
@@ -52,8 +51,6 @@ const UpsertSeason = (props) => {
         }
     }, [selectedSeason])
 
-    console.log(dataSelectedSeason);
-
     const fetchAllSeason = async () => {
         let res = await getAllSeason();
         if (res && res.EC === 0) {
@@ -79,7 +76,6 @@ const UpsertSeason = (props) => {
                     value: item._id
                 })
             })
-            setDataAllTeacher(res.DT)
             setAllTeacher(listTeacher)
         } else {
             toast.error(res.EM)
@@ -88,11 +84,14 @@ const UpsertSeason = (props) => {
 
     const handleChangeTeacher = (index, number, id) => {
         const _dataSelectedSeason = _.cloneDeep(dataSelectedSeason);
-        _dataSelectedSeason.grades[index].classes[number].teacher[0]._id = id
+        _dataSelectedSeason.grades[index].classes[number].teacher[0] = id;
+        if (!_dataSelectedSeason.grades[index].classes[number]._id) {
+            _dataSelectedSeason.grades[index].classes[number]._id = `fakeId-${uuidv4()}`
+        }
         setDataSelectedSeason(_dataSelectedSeason)
     }
 
-    const handleAddRemoveClass = (type, index) => {
+    const handleAddRemoveClass = (type, index, number) => {
         const _dataSelectedSeason = _.cloneDeep(dataSelectedSeason)
         if (type === 'A') {
             if (_dataSelectedSeason.grades[index].classes && _dataSelectedSeason.grades[index].classes.length > 0) {
@@ -104,15 +103,32 @@ const UpsertSeason = (props) => {
                 toast.error('Grade have at least 1 class')
                 return;
             } else {
+                if (_dataSelectedSeason.grades[index].classes[number]._id) {
+                    setArrDeleteClass([...arrDeleteClass, _dataSelectedSeason.grades[index].classes[number]._id])
+                }
                 _dataSelectedSeason.grades[index].classes.pop()
             }
         }
         setDataSelectedSeason(_dataSelectedSeason)
     }
 
-    const handleChangeAndSaveSeason = () => {
+    const handleChangeAndSaveSeason = async () => {
         let dataUpload = validateSeason();
-        // console.log(dataUpload);
+        if (dataUpload) {
+            console.log(dataUpload);
+            let res = await upsertSeason(dataUpload)
+            if (res && res.EC === 0) {
+                if (arrDeleteClass) {
+                    let dataDeleteClass = { arrId: arrDeleteClass };
+                    await deleteManyClass(dataDeleteClass)
+                }
+                setSelectedSeason('');
+                setDataSelectedSeason({});
+                setArrDeleteClass([]);
+                toast.success(res.EM);
+                fetchAllSeason()
+            }
+        }
     }
 
     const validateSeason = () => {
@@ -132,11 +148,11 @@ const UpsertSeason = (props) => {
                         if (classInfo.name === 'fakeClassName') {
                             classInfo.name = `${index + 10}/${number + 1}`
                         }
-                        if (classInfo.teacher[0]._id === '') {
+                        if (classInfo.teacher[0] === '') {
                             toast.error(`Class ${index + 10}/${number + 1} dont select teacher`)
                             checkSameTeacher = false;
                         } else {
-                            arrayIdTeacher.push(classInfo.teacher[0]._id)
+                            arrayIdTeacher.push(classInfo.teacher[0])
                         }
                     })
                 }
@@ -145,13 +161,14 @@ const UpsertSeason = (props) => {
         if (checkSameTeacher) {
             for (let i = 0; i < arrayIdTeacher.length; i++) {
                 let result = checkArrSameTeacher(arrayIdTeacher, arrayIdTeacher[i])
-                if (result) {
-                    toast.error(`Teacher at row ${result[0]} and  ${result[1]} is same`);
-                    return;
+                if (result && result[1]) {
+                    toast.error(`Teacher at row ${+result[0] + 1} and  ${+result[1] + 1} is same`);
+                    return null;
                 }
             }
+        } else {
+            return null;
         }
-        console.log(_dataSelectedSeason);
         return _dataSelectedSeason;
     }
 
@@ -189,22 +206,22 @@ const UpsertSeason = (props) => {
                                                 <div>Grade {10 + index}:</div>
                                                 {gradeInfo.classes && gradeInfo.classes.length > 0 &&
                                                     gradeInfo.classes.map((classInfo, number) => {
+                                                        let value = allTeacher.find(o => o.value === classInfo.teacher[0]);
                                                         return (
                                                             <>
                                                                 <div className="row mt-1">
                                                                     <div className="col-1">Class: {10 + index}/{number + 1}</div>
                                                                     <div className="col-4">
-                                                                        Teacher: <Select
+                                                                        Teacher:
+                                                                        <Select
                                                                             options={allTeacher}
                                                                             onChange={(event) => handleChangeTeacher(index, number, event.value)}
+                                                                            value={value}
                                                                         />
-                                                                        {classInfo.teacher && classInfo.teacher.username && classInfo.teacher.email &&
-                                                                            <div>{classInfo.teacher.username}</div>
-                                                                        }
                                                                     </div>
                                                                     <div className="col-2">
                                                                         <span className="btn btn-success" onClick={() => handleAddRemoveClass('A', index)}>Add</span>
-                                                                        <span className="btn btn-danger" onClick={() => handleAddRemoveClass('R', index)}>Remove</span>
+                                                                        <span className="btn btn-danger" onClick={() => handleAddRemoveClass('R', index, number)}>Remove</span>
                                                                     </div>
                                                                 </div>
                                                             </>

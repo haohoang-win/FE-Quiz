@@ -55,8 +55,9 @@ const Header = (props) => {
                                         </NavDropdown>
                                         <NavDropdown title="Season" id="basic-nav-dropdown">
                                             <NavDropdown.Item ><NavLink to='/add-season' className='nav-link'>Create a Season</NavLink></NavDropdown.Item>
-                                            <NavDropdown.Item><NavLink to='/quizzes' className='nav-link'>All Quiz</NavLink></NavDropdown.Item>
                                             <NavDropdown.Item><NavLink to='/upsert-season' className='nav-link'>Upsert Season</NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item><NavLink to='/add-student' className='nav-link'>Add Student for Class</NavLink></NavDropdown.Item>
+                                            <NavDropdown.Item><NavLink to='/add-object-teacher' className='nav-link'>Add Teacher Object For Class</NavLink></NavDropdown.Item>
                                         </NavDropdown>
                                     </>
                                     : <></>

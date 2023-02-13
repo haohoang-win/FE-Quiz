@@ -5,7 +5,11 @@ const postNewSeason = (data) => {
 }
 
 const getAllSeason = () => {
-    return axios.get('/season');
+    return axios.get('/season?populate=grades.classes');
 }
 
-export { postNewSeason, getAllSeason }
+const upsertSeason = (dataUpsert) => {
+    return axios.post('/upsert-season', dataUpsert);
+}
+
+export { postNewSeason, getAllSeason, upsertSeason }

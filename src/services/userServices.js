@@ -66,4 +66,9 @@ const logoutUser = () => {
     return axios.get(`/logout`)
 }
 
-export { postNewUser, getUser, getUserStudent, getUserAndQuiz, getUserByPage, upsertUser, deleteUser, postQuizForUser, registerNewUser, loginUser, getUserAccount, logoutUser }
+export {
+    postNewUser, getUser, getUserStudent,
+    getUserAndQuiz, getUserByPage, upsertUser,
+    deleteUser, postQuizForUser, registerNewUser,
+    loginUser, getUserAccount, logoutUser,
+}
