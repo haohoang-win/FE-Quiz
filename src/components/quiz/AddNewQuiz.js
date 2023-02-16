@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 import { postNewQuiz } from '../../services/quizServices';
+import { FaFileImport } from 'react-icons/fa'
 
 const AddNewQuiz = (props) => {
     const [name, setName] = useState('');
@@ -74,7 +75,8 @@ const AddNewQuiz = (props) => {
                     </div>
                     <div className='col-md-12'>
                         <label className="form-label label-upload" htmlFor='labelUpload'>
-                            <i className="fas fa-file-import"></i> Update file Image
+                            {/* <i className="fas fa-file-import"></i> */}
+                            <FaFileImport /> Update file Image
                         </label>
                         <input type='file' hidden id='labelUpload' onChange={(event) => handleUploadImage(event)} />
                     </div>

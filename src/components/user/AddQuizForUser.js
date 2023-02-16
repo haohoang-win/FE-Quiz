@@ -27,7 +27,7 @@ const AddQuizForUser = (props) => {
     }, [])
 
     useEffect(() => {
-        if (listUser) {
+        if (listUser && selectedUser.value) {
             let index = listUser.findIndex(item => item._id === selectedUser.value)
             if (index > -1) {
                 setDataSelectedUser(listUser[index])

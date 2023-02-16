@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { useEffect, useState, useRef } from 'react';
 import ModalViewImage from '../../quiz/Modal/ModalViewImage';
+import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
 
 const Question = (props) => {
     const { arrQuestion, index, selected, handleCheckbox, showAnswers, dataResult } = props;
@@ -87,12 +88,16 @@ const Question = (props) => {
                                     </label>
                                     <span className='correct'>
                                         {showAnswers && checked[number] === 1 ?
-                                            <i className="fa-solid fa-check"></i> : <></>
+                                            // <i className="fa-solid fa-check"></i> 
+                                            <AiOutlineCheck />
+                                            : <></>
                                         }
                                     </span>
                                     <span className='wrong'>
                                         {showAnswers && checked[number] === 2 ?
-                                            <i className="fa-solid fa-xmark"></i> : <></>
+                                            // <i className="fa-solid fa-xmark"></i> 
+                                            <AiOutlineClose />
+                                            : <></>
                                         }
                                     </span>
                                 </div>

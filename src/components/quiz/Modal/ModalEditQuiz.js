@@ -5,6 +5,7 @@ import _ from 'lodash';
 import './ModalImage.scss'
 import { upsertQuiz } from '../../../services/quizServices';
 import { toast } from 'react-toastify';
+import { FaFileImport } from 'react-icons/fa'
 
 const ModalEditQuiz = (props) => {
     const { dataQuiz, show, setShow, resetDataQuiz, fetchQuizByPage, currentPage } = props;
@@ -106,7 +107,8 @@ const ModalEditQuiz = (props) => {
                         </div>
                         <div className='col-md-12'>
                             <label className="form-label label-upload" htmlFor='labelUpload'>
-                                <i className="fas fa-file-import"></i> Update file Image
+                                {/* <i className="fas fa-file-import"></i>  */}
+                                <FaFileImport /> Update file Image
                             </label>
                             <input type='file' hidden id='labelUpload' onChange={(event) => handleUploadImage(event)} />
                         </div>

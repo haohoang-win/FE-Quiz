@@ -5,6 +5,7 @@ import _ from 'lodash';
 import './ModalImage.scss'
 import { upsertUser } from '../../../services/userServices';
 import { toast } from 'react-toastify';
+import { FaFileImport } from 'react-icons/fa'
 
 const ModalEditUser = (props) => {
     const { dataUser, show, setShow, resetDataUser, fetchUserByPage, currentPage } = props;
@@ -119,7 +120,8 @@ const ModalEditUser = (props) => {
                         </div>
                         <div className='col-md-12'>
                             <label className="form-label label-upload" htmlFor='labelUpload'>
-                                <i className="fas fa-file-import"></i> Update file Image
+                                {/* <i className="fas fa-file-import"></i>  */}
+                                <FaFileImport /> Update file Image
                             </label>
                             <input type='file' hidden id='labelUpload' onChange={(event) => handleUploadImage(event)} />
                         </div>

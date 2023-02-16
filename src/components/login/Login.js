@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'
 import { loginUser } from '../../services/userServices';
-import { useDispatch } from 'react-redux';
-import { loginRedux, setWeekNumber } from '../../redux/slice/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadingLogin, loginRedux, setWeekNumber, unLoadingLogin } from '../../redux/slice/userSlice';
 import { getCurrentSeason } from '../../services/seasonServices';
 import { ImSpinner10 } from 'react-icons/im'
 
 const Login = (props) => {
     let navigate = useNavigate();
     let dispatch = useDispatch();
+    const isLoading = useSelector(state => state.user.isLoading)
     const defaultObjsValidInput = {
         isaValidValueLogin: true,
         isValidPassword: true
@@ -40,7 +41,8 @@ const Login = (props) => {
             toast.error("Please enter your password")
             return;
         }
-        let res = await loginUser(email, password)
+        dispatch(loadingLogin())
+        let res = await loginUser(email, password);
         if (res && +res.EC === 0) {
             let role = res.DT.role
             let email = res.DT.email
@@ -70,6 +72,7 @@ const Login = (props) => {
             // error
             toast.error(res.EM)
         }
+        dispatch(unLoadingLogin())
     }
 
     const handlePressEnter = (e) => {
@@ -94,18 +97,20 @@ const Login = (props) => {
                         </div>
                         <input type="text"
                             className={objValidnput.isaValidValueLogin ? "form-control" : "form-control is-invalid"}
-                            placeholder="Email address"
+                            placeholder="Email address (admin@gmail.com)"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <input type="password"
                             className={objValidnput.isValidPassword ? "form-control" : "form-control is-invalid"}
-                            placeholder="Password"
+                            placeholder="Password (123456)"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             onKeyPress={(e) => handlePressEnter(e)}
                         />
-                        <button className="btn btn-primary" onClick={handleLogin}>Login</button>
+                        <button className="btn btn-primary" onClick={handleLogin} disabled={isLoading ? isLoading : false}>
+                            {isLoading === true && <ImSpinner10 className='loader-icon' />}Login
+                        </button>
                         <span className="text-center">
                             <a className='forgot-password' href='#'>Forgot your password</a>
                         </span>

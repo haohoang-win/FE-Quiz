@@ -7,6 +7,8 @@ import ModalViewImage from "./Modal/ModalViewImage";
 import { toast } from 'react-toastify';
 import { postAnswer, putAnswer } from "../../services/answerServices";
 import { postAnswerForQuestion, postQuestion } from "../../services/questionService";
+import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+import { BsCardImage } from "react-icons/bs";
 
 const UpsertQuiz = (props) => {
     const [listQuiz, setListQuiz] = useState();
@@ -260,7 +262,8 @@ const UpsertQuiz = (props) => {
                                     </div>
                                     <div className="col-md-2 file-upload-question">
                                         <label htmlFor={`image-${index}-${question.id}`}>
-                                            <i className="fa-regular fa-image" />
+                                            {/* <i className="fa-regular fa-image" /> */}
+                                            <BsCardImage />
                                         </label>&nbsp;
                                         <input
                                             id={`image-${index}-${question.id}`}
@@ -278,16 +281,18 @@ const UpsertQuiz = (props) => {
                                         </span>
                                         &nbsp;	&nbsp;
                                         <span > &nbsp;
-                                            <i
+                                            {/* <i
                                                 className="fa-solid fa-circle-plus plus"
                                                 onClick={() => handleAddRemoveQuestion('ADD')}
-                                            />
+                                            /> */}
+                                            <AiFillPlusCircle className='plus' onClick={() => handleAddRemoveQuestion('ADD')} />
                                             {dataSelectedQuiz.questions && dataSelectedQuiz.questions.length > 1 &&
                                                 <>
                                                     &nbsp;	&nbsp; &nbsp;
-                                                    <i className="fa-solid fa-circle-minus remove"
+                                                    {/* <i className="fa-solid fa-circle-minus remove"
                                                         onClick={() => handleAddRemoveQuestion('REMOVE', index)}
-                                                    />
+                                                    /> */}
+                                                    <AiFillMinusCircle className="remove" onClick={() => handleAddRemoveQuestion('REMOVE', index)} />
                                                 </>
                                             }
                                         </span >
@@ -311,16 +316,18 @@ const UpsertQuiz = (props) => {
                                                     <div className="col-md-1 add-remove">
                                                         <div>
                                                             &nbsp;	&nbsp;&nbsp;	&nbsp; &nbsp;&nbsp;
-                                                            <i
+                                                            {/* <i
                                                                 className="fa-solid fa-circle-plus plus"
                                                                 onClick={() => handleAddRemoveAnswer('ADD', index)}
-                                                            />
+                                                            /> */}
+                                                            <AiFillPlusCircle className='plus' onClick={() => handleAddRemoveAnswer('ADD', index)} />
                                                             {question.answers && question.answers.length > 1 &&
                                                                 <>
                                                                     &nbsp;	&nbsp;
-                                                                    <i className="fa-solid fa-circle-minus remove"
+                                                                    {/* <i className="fa-solid fa-circle-minus remove"
                                                                         onClick={() => handleAddRemoveAnswer('REMOVE', index, number)}
-                                                                    />
+                                                                    /> */}
+                                                                    <AiFillMinusCircle className="remove" onClick={() => handleAddRemoveAnswer('REMOVE', index, number)} />
                                                                 </>
                                                             }
                                                         </div>

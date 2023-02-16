@@ -4,7 +4,8 @@ let initialState = {
     isAuthenticated: false,
     token: "",
     account: {},
-    weekNumber: ''
+    weekNumber: '',
+    isLoading: false,
 }
 
 export const userSlice = createSlice({
@@ -28,11 +29,17 @@ export const userSlice = createSlice({
         },
         setWeekNumber: (state, action) => {
             state.weekNumber = action?.payload
+        },
+        loadingLogin: (state, action) => {
+            state.isLoading = true;
+        },
+        unLoadingLogin: (state, action) => {
+            state.isLoading = false;
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { loginRedux, logoutRedux, refreshPage, setWeekNumber } = userSlice.actions
+export const { loginRedux, logoutRedux, refreshPage, setWeekNumber, loadingLogin, unLoadingLogin } = userSlice.actions
 
 export default userSlice.reducer

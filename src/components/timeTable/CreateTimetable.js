@@ -189,15 +189,15 @@ const CreateTimetable = (props) => {
                             </div>
                             <div className="col-2 symbol">
                                 <div className="note">
-                                    <span class="dot dot-1"></span>
+                                    <span className="dot dot-1"></span>
                                     <span>&nbsp;&nbsp;Your schedule</span>
                                 </div>
                                 <div className="note">
-                                    <span class="dot dot-2"></span>
+                                    <span className="dot dot-2"></span>
                                     <span>&nbsp;&nbsp;Can't choose</span>
                                 </div>
                                 <div className="note">
-                                    <span class="dot dot-3"></span>
+                                    <span className="dot dot-3"></span>
                                     <span>&nbsp;&nbsp;Free</span>
                                 </div>
                             </div>

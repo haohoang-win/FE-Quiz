@@ -80,11 +80,11 @@ const MyTimetable = (props) => {
                     </div>
                     <div className="col-2 symbol">
                         <div className="note">
-                            <span class="dot dot-4"></span>
+                            <span className="dot dot-4"></span>
                             <span>&nbsp;&nbsp;Have schedule</span>
                         </div>
                         <div className="note">
-                            <span class="dot dot-5"></span>
+                            <span className="dot dot-5"></span>
                             <span>&nbsp;&nbsp;Free Time</span>
                         </div>
                     </div>
