@@ -34,7 +34,7 @@ const Header = (props) => {
             <>
                 <Navbar bg="light" expand="lg">
                     <Container>
-                        <NavLink to='/' className='nav-link'>Quiz App</NavLink>
+                        <NavLink to='/' className='nav-link'>High School</NavLink>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
@@ -53,12 +53,15 @@ const Header = (props) => {
                                             <NavDropdown.Item><NavLink to='/quizzes' className='nav-link'>All Quiz</NavLink></NavDropdown.Item>
                                             <NavDropdown.Item><NavLink to='/upsert-quiz' className='nav-link'>Upsert Quiz</NavLink></NavDropdown.Item>
                                         </NavDropdown>
-                                        <NavDropdown title="Season" id="basic-nav-dropdown">
-                                            <NavDropdown.Item ><NavLink to='/add-season' className='nav-link'>Create a Season</NavLink></NavDropdown.Item>
-                                            <NavDropdown.Item><NavLink to='/upsert-season' className='nav-link'>Upsert Season</NavLink></NavDropdown.Item>
-                                            <NavDropdown.Item><NavLink to='/add-student' className='nav-link'>Add Student for Class</NavLink></NavDropdown.Item>
-                                            <NavDropdown.Item><NavLink to='/add-object-teacher' className='nav-link'>Add Teacher Object For Class</NavLink></NavDropdown.Item>
-                                        </NavDropdown>
+                                        {role === 'MANAGER' ?
+                                            <NavDropdown title="Season" id="basic-nav-dropdown">
+                                                <NavDropdown.Item ><NavLink to='/add-season' className='nav-link'>Create a Season</NavLink></NavDropdown.Item>
+                                                <NavDropdown.Item><NavLink to='/upsert-season' className='nav-link'>Upsert Season</NavLink></NavDropdown.Item>
+                                                <NavDropdown.Item><NavLink to='/add-student' className='nav-link'>Add Student for Class</NavLink></NavDropdown.Item>
+                                                <NavDropdown.Item><NavLink to='/add-object-teacher' className='nav-link'>Add Teacher Object For Class</NavLink></NavDropdown.Item>
+                                            </NavDropdown>
+                                            : <NavLink to='/create-timetable' className='nav-link'>Sign up schedules for a class</NavLink>
+                                        }
                                     </>
                                     : <></>
                                 }
@@ -68,6 +71,10 @@ const Header = (props) => {
                                     <>
                                         <Nav className='nav-link'>Welcome {username}!</Nav>
                                         <NavLink to='/exams' className='nav-link'>Go to exams</NavLink>
+                                        {role === 'STUDENT' ?
+                                            <NavLink to='/my-timetable' className='nav-link'>My timetable</NavLink>
+                                            : <></>
+                                        }
                                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                                             <NavDropdown.Item ><NavLink to='/' className='nav-link'>My Profile</NavLink></NavDropdown.Item>
                                             <NavDropdown.Item><span onClick={handleLogOut}><NavLink to='/' className='nav-link'>

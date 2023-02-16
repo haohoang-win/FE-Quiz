@@ -6,7 +6,7 @@ import { getClassByIdWithTeacher, postObjectTeacherForClass } from "../../servic
 import { getUserByPage } from "../../services/userServices";
 import _ from 'lodash'
 
-const AddObjectTeacherForClass = (props) => {
+const AddSubjectTeacherForClass = (props) => {
     const [allSeason, setAllSeason] = useState([])
     const [dataAllSeason, setDataAllSeason] = useState([])
     const [selectedSeason, setSelectedSeason] = useState({})
@@ -46,7 +46,6 @@ const AddObjectTeacherForClass = (props) => {
 
     useEffect(() => {
         if (selectedClass.value) {
-            console.log(dataSelectedClass);
             fetchClassById(selectedClass.value)
         }
     }, [selectedClass])
@@ -165,8 +164,8 @@ const AddObjectTeacherForClass = (props) => {
 
     return (
         <>
-            <div className="upsertseason-container">
-                <div className="title">Upsert Season</div>
+            <div className="addsubject-container">
+                <div className="title">Add Subject Teacher For Class</div>
                 <div className="row">
                     <div className="col-md-6">
                         <label className="form-label">Select Season</label>
@@ -192,7 +191,7 @@ const AddObjectTeacherForClass = (props) => {
                                     <thead>
                                         <tr>
                                             <th scope="col">STT</th>
-                                            <th scope="col">Object Teacher</th>
+                                            <th scope="col">Subject Teacher</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -229,7 +228,7 @@ const AddObjectTeacherForClass = (props) => {
                                                                 />
                                                             </td>
                                                             <td>
-                                                                <div className="btn btn-success" onClick={() => handleAddRemoveTeacher('A')}>ADD</div>
+                                                                <div className="btn btn-success btn-add" onClick={() => handleAddRemoveTeacher('A')}>ADD</div>
                                                                 <div className="btn btn-warning" onClick={() => handleAddRemoveTeacher('R', index)}>REMOVE</div>
                                                             </td>
                                                         </tr>
@@ -252,4 +251,4 @@ const AddObjectTeacherForClass = (props) => {
         </>
     )
 }
-export default AddObjectTeacherForClass;
+export default AddSubjectTeacherForClass;

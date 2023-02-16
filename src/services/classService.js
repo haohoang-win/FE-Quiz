@@ -12,6 +12,10 @@ const getClassByIdWithTeacher = (id) => {
     return axios.get(`/class/${id}?populate=teacherObject`);
 }
 
+const getAllClassWithSeason = (id) => {
+    return axios.get(`/all-class/2022-2023/${id}`);
+}
+
 const postStudentForClass = (data) => {
     return axios.post(`/class`, data);
 }
@@ -20,4 +24,4 @@ const postObjectTeacherForClass = (data) => {
     return axios.post(`/class-subbject-teacher`, data);
 }
 
-export { deleteManyClass, getClassById, postStudentForClass, getClassByIdWithTeacher, postObjectTeacherForClass }
+export { deleteManyClass, getClassById, postStudentForClass, getClassByIdWithTeacher, postObjectTeacherForClass, getAllClassWithSeason }

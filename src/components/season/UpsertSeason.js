@@ -85,6 +85,7 @@ const UpsertSeason = (props) => {
     const handleChangeTeacher = (index, number, id) => {
         const _dataSelectedSeason = _.cloneDeep(dataSelectedSeason);
         _dataSelectedSeason.grades[index].classes[number].teacher[0] = id;
+        _dataSelectedSeason.grades[index].classes[number].year = _dataSelectedSeason.year;
         if (!_dataSelectedSeason.grades[index].classes[number]._id) {
             _dataSelectedSeason.grades[index].classes[number]._id = `fakeId-${uuidv4()}`
         }
@@ -115,7 +116,6 @@ const UpsertSeason = (props) => {
     const handleChangeAndSaveSeason = async () => {
         let dataUpload = validateSeason();
         if (dataUpload) {
-            console.log(dataUpload);
             let res = await upsertSeason(dataUpload)
             if (res && res.EC === 0) {
                 if (arrDeleteClass) {
@@ -195,7 +195,6 @@ const UpsertSeason = (props) => {
                             options={allSelectSeason}
                         />
                     </div>
-                    <div className="col-6"></div>
                     {selectedSeason && dataSelectedSeason ?
                         <>
                             <div className="col-12">
@@ -203,14 +202,14 @@ const UpsertSeason = (props) => {
                                     dataSelectedSeason.grades.map((gradeInfo, index) => {
                                         return (
                                             <>
-                                                <div>Grade {10 + index}:</div>
+                                                <span className="grade">Grade {10 + index}:</span>
                                                 {gradeInfo.classes && gradeInfo.classes.length > 0 &&
                                                     gradeInfo.classes.map((classInfo, number) => {
                                                         let value = allTeacher.find(o => o.value === classInfo.teacher[0]);
                                                         return (
                                                             <>
-                                                                <div className="row mt-1">
-                                                                    <div className="col-1">Class: {10 + index}/{number + 1}</div>
+                                                                <div className="row mt-3 ">
+                                                                    <div className="col-1 name-class"><span>Class: {10 + index}/{number + 1}</span></div>
                                                                     <div className="col-4">
                                                                         Teacher:
                                                                         <Select
@@ -219,8 +218,8 @@ const UpsertSeason = (props) => {
                                                                             value={value}
                                                                         />
                                                                     </div>
-                                                                    <div className="col-2">
-                                                                        <span className="btn btn-success" onClick={() => handleAddRemoveClass('A', index)}>Add</span>
+                                                                    <div className="col-2 btn-class">
+                                                                        <span className="btn btn-success btn-add" onClick={() => handleAddRemoveClass('A', index)}>Add</span>
                                                                         <span className="btn btn-danger" onClick={() => handleAddRemoveClass('R', index, number)}>Remove</span>
                                                                     </div>
                                                                 </div>
@@ -228,6 +227,7 @@ const UpsertSeason = (props) => {
                                                         )
                                                     })
                                                 }
+                                                <hr></hr>
                                             </>
                                         )
                                     })

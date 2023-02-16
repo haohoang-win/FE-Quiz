@@ -16,7 +16,9 @@ import DatePicker from '../components/manageDate/datePicker'
 import AddNewSeason from '../components/season/AddNewSeason'
 import UpsertSeason from '../components/season/UpsertSeason'
 import AddStudentForClass from '../components/season/AddStudentForClass'
-import AddObjectTeacherForClass from '../components/season/AddObjectTeacherForClass'
+import AddSubjectTeacherForClass from '../components/season/AddSubjectTeacherForClass'
+import CreateTimetable from '../components/timeTable/CreateTimetable'
+import MyTimetable from '../components/timeTable/MyTimetable'
 
 const AppRoutes = () => {
     const role = useSelector(state => state.user.account.role)
@@ -29,7 +31,7 @@ const AppRoutes = () => {
                     <Route path='/add-season' element={<AddNewSeason />} />
                     <Route path='/upsert-season' element={<UpsertSeason />} />
                     <Route path='/add-student' element={<AddStudentForClass />} />
-                    <Route path='/add-object-teacher' element={<AddObjectTeacherForClass />} />
+                    <Route path='/add-object-teacher' element={<AddSubjectTeacherForClass />} />
                 </>
                 : <></>
 
@@ -41,6 +43,19 @@ const AppRoutes = () => {
                     <Route path='/add-quiz' element={<AddNewQuiz />} />
                     <Route path='/quizzes' element={<GetAllQuiz />} />
                     <Route path='/upsert-quiz' element={<UpsertQuiz />} />
+                    <Route path='/create-timetable' element={<CreateTimetable />} />
+                </>
+                : <></>
+            }
+            {(role === 'TEACHER') ?
+                <>
+                    <Route path='/create-timetable' element={<CreateTimetable />} />
+                </>
+                : <></>
+            }
+            {(role === 'STUDENT') ?
+                <>
+                    <Route path='/my-timetable' element={<MyTimetable />} />
                 </>
                 : <></>
             }

@@ -198,8 +198,8 @@ const AddStudentForClass = (props) => {
 
     return (
         <>
-            <div className="upsertseason-container">
-                <div className="title">Upsert Season</div>
+            <div className="addstudent-container">
+                <div className="title">Add Student for Class</div>
                 <div className="row">
                     <div className="col-md-6">
                         <label className="form-label">Select Season</label>
@@ -225,7 +225,7 @@ const AddStudentForClass = (props) => {
                                     <thead>
                                         <tr>
                                             <th scope="col">STT</th>
-                                            <th scope="col">Name And Email</th>
+                                            <th scope="col">List Student (Name and Email)</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -244,7 +244,7 @@ const AddStudentForClass = (props) => {
                                                             />
                                                         </td>
                                                         <td>
-                                                            <div className="btn btn-success" onClick={() => handleAddRemoveStudent('A')}>ADD</div>
+                                                            <div className="btn btn-success btn-add" onClick={() => handleAddRemoveStudent('A')}>ADD</div>
                                                             <div className="btn btn-warning" onClick={() => handleAddRemoveStudent('R', index)}>REMOVE</div>
                                                         </td>
                                                     </tr>

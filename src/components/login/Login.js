@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'
 import { loginUser } from '../../services/userServices';
 import { useDispatch } from 'react-redux';
-import { loginRedux } from '../../redux/slice/userSlice';
+import { loginRedux, setWeekNumber } from '../../redux/slice/userSlice';
+import { getCurrentSeason } from '../../services/seasonServices';
+import { ImSpinner10 } from 'react-icons/im'
 
 const Login = (props) => {
     let navigate = useNavigate();
@@ -43,16 +45,26 @@ const Login = (props) => {
             let role = res.DT.role
             let email = res.DT.email
             let username = res.DT.username
+            let _id = res.DT._id
             let token = res.DT.access_token
             // success
             let data = {
                 isAuthenticated: true,
                 token,
-                account: { role, email, username }
+                account: { role, email, username, _id }
             }
             localStorage.setItem('jwt', token)
             dispatch(loginRedux(data))
-            navigate('/');
+            let res1 = await getCurrentSeason();
+            if (res1 && res1.EC === 0) {
+                let dayOfStart = new Date(res1.DT[0].dayOfStart);
+                let currentDate = new Date()
+                let days = Math.floor((currentDate - dayOfStart) /
+                    (24 * 60 * 60 * 1000));
+                let weekNumber = Math.ceil(days / 7)
+                dispatch(setWeekNumber(weekNumber))
+                navigate('/');
+            }
         }
         if (res && +res.EC !== 0) {
             // error
